@@ -137,21 +137,3 @@ def generate_text(prompt: str, length: int = 20, temperature: float = 1.0) -> di
 if __name__ == "__main__":
     print("🚀 Starting API at http://127.0.0.1:8000")
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-# "I built a lightweight Transformer-based character-level language model trained on WikiText-2, exported it to ONNX for fast inference, and deployed it with FastAPI. It supports efficient text generation and runs both on CPU and GPU. I optimized the training loop with batch processing, added positional encodings for sequence awareness, and made sure the ONNX export supports dynamic sequence lengths. Want a demo?"
-#
-# If they ask for more:
-# "I trained it on 5,000 lines of WikiText-2 using PyTorch and a multi-head self-attention Transformer."
-# "Inference runs via ONNXRuntime, so it’s super lightweight compared to running a full PyTorch model in production."
-# "The API serves a /generate/ endpoint that autocompletes text in real-time. You can hit it with any text prompt, and it'll keep generating based on its training data."
-# "I also added dynamic batching support in ONNX, so it's efficient even for long text inputs."
-# 🔥 Bonus flex if they ask for performance:
-# "I tuned the model with Adam optimizer and CrossEntropyLoss, experimented with different embedding sizes, and tested inference latency using ONNXRuntime profiling."
-#
-# 💡 If they ask for improvements:
-#
-# "Right now, it’s character-based, but switching to a subword tokenizer like BPE or WordPiece would improve generation quality significantly."
-# "Could add a sampling strategy like top-k or nucleus sampling for more diverse text output."
-# "Right now, it’s a single Transformer encoder. Adding a causal mask would make it behave more like GPT."
-
-# 💯 Now, just be ready to screen-share the API and hit it with a sick prompt. 🚀🔥
