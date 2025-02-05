@@ -1,4 +1,6 @@
 import math
+
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.onnx
@@ -114,17 +116,21 @@ app = FastAPI()
 onnx_model = ort.InferenceSession(ONNX_FILENAME)
 
 @app.post("/generate/")
-def generate_text(prompt: str, length: int = 20) -> dict:
+def generate_text(prompt: str, length: int = 20, temperature: float = 1.0) -> dict:
     generated = prompt
     for _ in range(length):
         segment = generated[-SEQ_LEN:]
         inp = encode(segment)
-        # Pad to SEQ_LEN if needed.
         if len(inp) < SEQ_LEN:
             inp = [0] * (SEQ_LEN - len(inp)) + inp
         x = torch.tensor(inp, dtype=torch.long).unsqueeze(0)  # (1, SEQ_LEN)
         logits = onnx_model.run(None, {"input": x.numpy()})[0]
-        next_idx = int(logits[0, -1].argmax())
+
+        # Apply temperature scaling
+        logits = logits[0, -1] / temperature  # Adjust temperature
+        probs = np.exp(logits) / np.sum(np.exp(logits))  # Softmax
+        next_idx = np.random.choice(len(probs), p=probs)  # Sample
+
         generated += idx_to_char[next_idx]
     return {"generated_text": generated}
 
