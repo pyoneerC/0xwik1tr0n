@@ -172,7 +172,9 @@ torch.onnx.export(
     input_names=["input"],
     output_names=["output"],
     dynamic_axes={"input": {0: "batch", 1: "seq_len"},
-                  "output": {0: "batch", 1: "seq_len"}}
+                  "output": {0: "batch", 1: "seq_len"}},
+    opset_version=13,  # Use latest stable ONNX opset
+    do_constant_folding=True  # Optimize the computation graph
 )
 print(f"📦 Model exported to {ONNX_FILENAME}")
 
