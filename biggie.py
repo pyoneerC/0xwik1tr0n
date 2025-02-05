@@ -153,3 +153,5 @@ if __name__ == "__main__":
 # "Right now, it’s character-based, but switching to a subword tokenizer like BPE or WordPiece would improve generation quality significantly."
 # "Could add a sampling strategy like top-k or nucleus sampling for more diverse text output."
 # "Right now, it’s a single Transformer encoder. Adding a causal mask would make it behave more like GPT."
+
+# 💯 Now, just be ready to screen-share the API and hit it with a sick prompt. 🚀🔥
